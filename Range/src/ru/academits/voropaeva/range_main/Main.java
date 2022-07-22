@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Range rangeAB = new Range(-10, 7);
 
-        System.out.printf("Отрезок на числовом диапазоне равен от a = %.2f до b = %.2f %n", rangeAB.getFrom(), rangeAB.getTo());
+        System.out.printf("РћС‚СЂРµР·РѕРє РЅР° С‡РёСЃР»РѕРІРѕРј РґРёР°РїР°Р·РѕРЅРµ СЂР°РІРµРЅ РѕС‚ a = %.2f РґРѕ b = %.2f %n", rangeAB.getFrom(), rangeAB.getTo());
 
         rangeAB.setFrom(-16);
         rangeAB.setTo(20);
@@ -14,10 +14,10 @@ public class Main {
         double a = rangeAB.getFrom();
         double b = rangeAB.getTo();
 
-        System.out.printf("Новый отрезок равен a = %.2f до b = %.2f %n", a, b);
-        System.out.printf("Длина ab = %.2f %n", rangeAB.getLength());
+        System.out.printf("РќРѕРІС‹Р№ РѕС‚СЂРµР·РѕРє СЂР°РІРµРЅ a = %.2f РґРѕ b = %.2f %n", a, b);
+        System.out.printf("Р”Р»РёРЅР° ab = %.2f %n", rangeAB.getLength());
 
         double point1 = 10;
-        System.out.printf("Лежит ли точка %.2f с на отрезке ab? - Ответ: %s", point1, rangeAB.isInside(10));
+        System.out.printf("Р›РµР¶РёС‚ Р»Рё С‚РѕС‡РєР° %.2f СЃ РЅР° РѕС‚СЂРµР·РєРµ ab? - РћС‚РІРµС‚: %s", point1, rangeAB.isInside(10));
     }
 }

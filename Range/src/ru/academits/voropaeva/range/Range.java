@@ -32,4 +32,15 @@ public class Range {
     public boolean isInside(double number) {
         return number >= from && to >= number;
     }
+
+    /*
+    public double getIntervalsIntersection(Range rangeAB, Range rangeBC) {
+
+        if (rangeAB.retainAll(rangeBC) || rangeBC.retainAll(rangeAB)) {
+
+        } else {
+            return null;
+        }
+    }
+     */
 }
