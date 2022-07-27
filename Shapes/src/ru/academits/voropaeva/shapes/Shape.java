@@ -1,4 +1,4 @@
-package ru.academits.voropaeva.shape;
+package ru.academits.voropaeva.shapes;
 
 public interface Shape {
     double getWidth();
