@@ -1,12 +1,12 @@
 package ru.academits.voropaeva.shapes;
 
-public final class Triangle implements Shape {
-    public double x1;
-    public double y1;
-    public double x2;
-    public double y2;
-    public double x3;
-    public double y3;
+public class Triangle implements Shape {
+    private double x1;
+    private double y1;
+    private double x2;
+    private double y2;
+    private double x3;
+    private double y3;
 
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {
         this.x1 = x1;
@@ -53,34 +53,29 @@ public final class Triangle implements Shape {
 
     @Override
     public double getArea() {
-        double semiPerimeter = getPerimeter() / 2;
-
-        return Math.sqrt(semiPerimeter *
-                (semiPerimeter - getSideLength(x2, x1, y2, y1)) *
-                (semiPerimeter - getSideLength(x3, x1, y3, y1)) *
-                (semiPerimeter - getSideLength(x3, x2, y3, y2)));
+        return 1.0 / 2 * Math.abs((x2 -x1) * (y3 - y1) - (x3 - x1) * (y2 - y1));
     }
 
     @Override
     public double getPerimeter() {
-        return getSideLength(x2, x1, y2, y1) + getSideLength(x3, x1, y3, y1) + getSideLength(x3, x2, y3, y2);
+        return getSideLength(x2, y2, x1, y1) + getSideLength(x3, y3, x1, y1) + getSideLength(x3, y3, x2, y2);
     }
 
-    private double getSideLength(double start1, double start2, double end1, double end2) {
-        return Math.sqrt(Math.pow(start2 - start1, 2) + Math.pow(end2 - end1, 2));
+    private static double getSideLength(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
     @Override
     public String toString() {
-        return "Shape = Triangle"
-                + ", x1 = " + getX1()
-                + ", y1 = " + getY1()
-                + ", x2 = " + getX2()
-                + ", y2 = " + getY2()
-                + ", x3 = " + getX3()
-                + ", y3 = " + getY3()
-                + "Area = " + getArea()
-                + "Perimeter = " + getPerimeter();
+        return "Triangle"
+                + ", (x1 = " + x1
+                + ", y1 = " + y1
+                + "), (x2 = " + x2
+                + ", y2 = " + y2
+                + "), (x3 = " + x3
+                + ", y3 = " + y3
+                + "), area = " + getArea()
+                + ", perimeter = " + getPerimeter();
     }
 
     @Override
@@ -93,16 +88,16 @@ public final class Triangle implements Shape {
             return false;
         }
 
-        Triangle shape = (Triangle) o;
+        Triangle triangle = (Triangle) o;
 
-        return x1 == shape.x1 && y1 == shape.y1
-                && x2 == shape.x2 && y2 == shape.y2
-                && x3 == shape.x3 && y3 == shape.y3;
+        return x1 == triangle.x1 && y1 == triangle.y1
+                && x2 == triangle.x2 && y2 == triangle.y2
+                && x3 == triangle.x3 && y3 == triangle.y3;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 49;
+        final int prime = 47;
         int hash = 1;
         hash = prime * hash + Double.hashCode(x1);
         hash = prime * hash + Double.hashCode(y1);

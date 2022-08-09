@@ -1,8 +1,8 @@
 package ru.academits.voropaeva.shapes;
 
 public class Rectangle implements Shape {
-    public double width;
-    public double height;
+    private double width;
+    private double height;
 
     public Rectangle(double width, double height) {
         this.width = width;
@@ -31,11 +31,11 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return "Shape = Rectangle"
+        return "Rectangle"
                 + ", width = " + width
                 + ", height = " + height
-                + ", Area = " + getArea()
-                + ", Perimeter = " + getPerimeter();
+                + ", area = " + getArea()
+                + ", perimeter = " + getPerimeter();
     }
 
     @Override
@@ -48,14 +48,14 @@ public class Rectangle implements Shape {
             return false;
         }
 
-        Rectangle shape = (Rectangle) o;
+        Rectangle rectangle = (Rectangle) o;
 
-        return width == shape.width && height == shape.height;
+        return width == rectangle.width && height == rectangle.height;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 49;
+        final int prime = 47;
         int hash = 1;
         hash = prime * hash + Double.hashCode(width);
         hash = prime * hash + Double.hashCode(height);

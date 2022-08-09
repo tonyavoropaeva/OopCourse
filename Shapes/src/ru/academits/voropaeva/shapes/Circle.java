@@ -1,7 +1,7 @@
 package ru.academits.voropaeva.shapes;
 
 public class Circle implements Shape {
-    public double radius;
+    private double radius;
 
     public Circle(double radius) {
         this.radius = radius;
@@ -33,11 +33,11 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return "Shape = Circle"
-                + ", radius = " + getRadius()
+        return "Circle"
+                + ", radius = " + radius
                 + ", diameter = " + getHeight()
-                + ", Area = " + getArea()
-                + ", Perimeter = " + getPerimeter();
+                + ", area = " + getArea()
+                + ", perimeter = " + getPerimeter();
     }
 
     @Override
@@ -50,9 +50,9 @@ public class Circle implements Shape {
             return false;
         }
 
-        Circle shape = (Circle) o;
+        Circle circle = (Circle) o;
 
-        return radius == shape.radius;
+        return radius == circle.radius;
     }
 
     @Override

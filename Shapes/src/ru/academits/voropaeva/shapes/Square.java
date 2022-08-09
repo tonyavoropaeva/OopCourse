@@ -1,7 +1,7 @@
 package ru.academits.voropaeva.shapes;
 
 public class Square implements Shape {
-    public double sideLength;
+    private double sideLength;
 
     public Square(double sideLength) {
         this.sideLength = sideLength;
@@ -33,11 +33,11 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        return "Shape = Square"
-                + ", width = " + getSideLength()
-                + ", height = " + getSideLength()
-                + ", Area = " + getArea()
-                + ", Perimeter = " + getPerimeter();
+        return "Square"
+                + ", width = " + sideLength
+                + ", height = " + sideLength
+                + ", area = " + getArea()
+                + ", perimeter = " + getPerimeter();
     }
 
     @Override
@@ -50,9 +50,9 @@ public class Square implements Shape {
             return false;
         }
 
-        Square shape = (Square) o;
+        Square square = (Square) o;
 
-        return sideLength == shape.sideLength;
+        return sideLength == square.sideLength;
     }
 
     @Override
