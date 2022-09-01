@@ -11,6 +11,10 @@ public class Square implements Shape {
         return sideLength;
     }
 
+    public void setSideLength(double sideLength) {
+        this.sideLength = sideLength;
+    }
+
     @Override
     public double getWidth() {
         return sideLength;
@@ -34,8 +38,7 @@ public class Square implements Shape {
     @Override
     public String toString() {
         return "Square"
-                + ", width = " + sideLength
-                + ", height = " + sideLength
+                + ", side length = " + sideLength
                 + ", area = " + getArea()
                 + ", perimeter = " + getPerimeter();
     }

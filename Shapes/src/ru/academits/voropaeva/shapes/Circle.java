@@ -11,6 +11,10 @@ public class Circle implements Shape {
         return radius;
     }
 
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
     @Override
     public double getWidth() {
         return radius * 2;
@@ -35,7 +39,6 @@ public class Circle implements Shape {
     public String toString() {
         return "Circle"
                 + ", radius = " + radius
-                + ", diameter = " + getHeight()
                 + ", area = " + getArea()
                 + ", perimeter = " + getPerimeter();
     }

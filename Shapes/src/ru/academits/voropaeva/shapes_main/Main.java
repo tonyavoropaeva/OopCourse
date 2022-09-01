@@ -21,21 +21,21 @@ public class Main {
     }
 
     public static Shape getShapeWithMaxArea(Shape[] shapes) {
-        Arrays.sort(shapes, new ShapeAreaComparator());
-
         if (shapes.length == 0) {
             return null;
         }
+
+        Arrays.sort(shapes, new ShapeAreaComparator());
 
         return shapes[shapes.length - 1];
     }
 
     public static Shape getShapeWithSecondMaxPerimeter(Shape[] shapes) {
-        Arrays.sort(shapes, new ShapePerimeterComparator());
-
         if (shapes.length == 0 || shapes.length == 1) {
             return null;
         }
+
+        Arrays.sort(shapes, new ShapePerimeterComparator());
 
         return shapes[shapes.length - 2];
     }

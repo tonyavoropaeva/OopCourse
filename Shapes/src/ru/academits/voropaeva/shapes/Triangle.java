@@ -41,6 +41,30 @@ public class Triangle implements Shape {
         return y3;
     }
 
+    public void setX1(double x1) {
+        this.x1 = x1;
+    }
+
+    public void setY1(double y1) {
+        this.y1 = y1;
+    }
+
+    public void setX2(double x2) {
+        this.x2 = x2;
+    }
+
+    public void setY2(double y2) {
+        this.y2 = y2;
+    }
+
+    public void setX3(double x3) {
+        this.x3 = x3;
+    }
+
+    public void setY3(double y3) {
+        this.y3 = y3;
+    }
+
     @Override
     public double getWidth() {
         return Math.max(x3, Math.max(x1, x2)) - Math.min(x3, Math.min(x1, x2));
@@ -53,7 +77,7 @@ public class Triangle implements Shape {
 
     @Override
     public double getArea() {
-        return 1.0 / 2 * Math.abs((x2 -x1) * (y3 - y1) - (x3 - x1) * (y2 - y1));
+        return 0.5 * Math.abs((x2 -x1) * (y3 - y1) - (x3 - x1) * (y2 - y1));
     }
 
     @Override
@@ -68,12 +92,12 @@ public class Triangle implements Shape {
     @Override
     public String toString() {
         return "Triangle"
-                + ", (x1 = " + x1
-                + ", y1 = " + y1
-                + "), (x2 = " + x2
-                + ", y2 = " + y2
-                + "), (x3 = " + x3
-                + ", y3 = " + y3
+                + ", (" + x1
+                + ", " + y1
+                + "), (" + x2
+                + ", " + y2
+                + "), (" + x3
+                + ", " + y3
                 + "), area = " + getArea()
                 + ", perimeter = " + getPerimeter();
     }
