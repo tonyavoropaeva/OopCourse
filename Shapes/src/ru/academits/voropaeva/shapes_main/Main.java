@@ -14,7 +14,8 @@ public class Main {
                 new Circle(6),
                 new Square(17),
                 new Rectangle(7, 6),
-                new Square(3)};
+                new Square(3)
+        };
 
         System.out.println("Информация о фигуре с максимальной площадью: " + getShapeWithMaxArea(shapes));
         System.out.println("Инф-ия о фигуре со вторым наибольшим периметром: " + getShapeWithSecondMaxPerimeter(shapes));
@@ -31,7 +32,7 @@ public class Main {
     }
 
     public static Shape getShapeWithSecondMaxPerimeter(Shape[] shapes) {
-        if (shapes.length == 0 || shapes.length == 1) {
+        if (shapes.length <= 1) {
             return null;
         }
 
