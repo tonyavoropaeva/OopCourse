@@ -1,6 +1,6 @@
 package ru.academits.voropaeva.list;
 
-public class ListItem<T> {
+class ListItem<T> {
     private T data;
     private ListItem<T> next;
 
@@ -17,12 +17,12 @@ public class ListItem<T> {
         return data;
     }
 
-    public ListItem<T> getNext() {
-        return next;
-    }
-
     public void setData(T data) {
         this.data = data;
+    }
+
+    public ListItem<T> getNext() {
+        return next;
     }
 
     public void setNext(ListItem<T> next) {
