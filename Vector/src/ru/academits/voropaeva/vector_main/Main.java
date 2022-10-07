@@ -28,7 +28,7 @@ public class Main {
 
         System.out.println("Длина вектора " + vector1 + " = " + vector1.getLength());
 
-        System.out.println("компонента вектора под индексом 3 " + vector1 + " = " + vector1.getElementByIndex(3));
+        System.out.println("Компонента вектора под индексом 3 " + vector1 + " = " + vector1.getComponentByIndex(3));
 
         System.out.print("Замена компоненты вектора под индексом 1 " + vector1 + " на 2.7 = ");
         vector1.setElementByIndex(1, 2.7);
