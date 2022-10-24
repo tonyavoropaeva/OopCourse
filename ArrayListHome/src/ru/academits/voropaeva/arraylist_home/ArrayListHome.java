@@ -17,20 +17,25 @@ public class ArrayListHome {
                 lines.add(line);
                 line = reader.readLine();
             }
+
+            System.out.println("Данные из файла: " + lines);
         } catch (FileNotFoundException e) {
             System.out.println("Ошибка, файл не найден");
         }
 
-        System.out.println("Данные из файла: " + lines);
-
         /* Есть список из целых чисел. Удалить из него все четные числа. В
            этой задаче новый список создавать нельзя */
 
-        ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(1, 10, 2, 5, 6, 0, 12, 7, 9, 3, 9, 10, 17, 17, 2, 3, 17, 21));
+        ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(2, 1, 10, 2, 5, 6, 0, 12, 7, 9, 3, 9, 10, 17, 17, 2, 3, 17, 21));
 
         System.out.println("Список: " + numbers);
 
-        numbers.removeIf(number -> number % 2 == 0);
+        for (int count = 0; count < numbers.size(); ++count) {
+            if (numbers.get(count) % 2 == 0 && numbers.get(count) != 0) {
+                numbers.remove(count);
+                --count;
+            }
+        }
 
         System.out.println("Список после удаления четных чисел: " + numbers);
 
@@ -39,15 +44,14 @@ public class ArrayListHome {
            элементы первого списка в таком же порядке, но без
            повторений */
 
-        ArrayList<Integer> numbersNoRepeats = new ArrayList<>(numbers.size());
+        ArrayList<Integer> numbersWithoutRepetition = new ArrayList<>(numbers.size());
 
         for (Integer number : numbers) {
-
-            if (!numbersNoRepeats.contains(number)) {
-                numbersNoRepeats.add(number);
+            if (!numbersWithoutRepetition.contains(number)) {
+                numbersWithoutRepetition.add(number);
             }
         }
 
-        System.out.println("Новый список после удаления повторяющихся чисел: " + numbersNoRepeats);
+        System.out.println("Новый список после удаления повторяющихся чисел: " + numbersWithoutRepetition);
     }
 }
