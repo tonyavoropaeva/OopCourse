@@ -7,38 +7,38 @@ public class Vector {
 
     public Vector(int length) {
         if (length <= 0) {
-            throw new IllegalArgumentException("Размерность вектора должена быть больше 0");
+            throw new IllegalArgumentException("Размерность вектора должена быть больше 0, сейчас она равна " + length);
         }
 
         components = new double[length];
     }
 
     public Vector(Vector vector) {
-        this.components = Arrays.copyOf(vector.components, vector.components.length);
+        components = Arrays.copyOf(vector.components, vector.components.length);
     }
 
-    public Vector(double[] vectorArray) {
-        if (vectorArray == null) {
-            throw new NullPointerException("Массив пуст");
+    public Vector(double[] componentsArray) {
+        if (componentsArray == null) {
+            throw new NullPointerException("Массив равен null");
         }
 
-        if (vectorArray.length == 0) {
-            throw new IllegalArgumentException("Размерность вектора должена быть больше 0");
+        if (componentsArray.length == 0) {
+            throw new IllegalArgumentException("Размерность вектора должена быть больше 0, сейчас она равна " + componentsArray.length);
         }
 
-        components = Arrays.copyOf(vectorArray, vectorArray.length);
+        components = Arrays.copyOf(componentsArray, componentsArray.length);
     }
 
-    public Vector(int length, double[] vectorArray) {
-        if (vectorArray == null) {
-            throw new NullPointerException("Массив пуст");
+    public Vector(int length, double[] componentsArray) {
+        if (componentsArray == null) {
+            throw new NullPointerException("Массив равен null");
         }
 
         if (length <= 0) {
-            throw new IllegalArgumentException("Размерность вектора должена быть больше 0");
+            throw new IllegalArgumentException("Размерность вектора должена быть больше 0, сейчас она равна " + length);
         }
 
-        components = Arrays.copyOf(vectorArray, length);
+        components = Arrays.copyOf(componentsArray, length);
     }
 
     public int getSize() {
@@ -47,42 +47,38 @@ public class Vector {
 
     @Override
     public String toString() {
-        StringBuilder vector = new StringBuilder("{");
+        StringBuilder stringBuilder = new StringBuilder("{");
 
         for (double components : components) {
-            vector.append(components)
+            stringBuilder.append(components)
                     .append(", ");
         }
 
-        vector.delete(vector.length() - 2, vector.length() + 1);
-        vector.append("}");
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        stringBuilder.append("}");
 
-        return vector.toString();
+        return stringBuilder.toString();
     }
 
     public void add(Vector vector) {
-        int min = Math.min(components.length, vector.components.length);
-
         if (vector.components.length > components.length) {
-            double[] vectorArray = Arrays.copyOf(vector.components, vector.components.length);
-            System.arraycopy(components, 0, vectorArray, 0, min);
+            double[] componentsArray = new double[vector.components.length];
+            System.arraycopy(components, 0, componentsArray, 0, components.length);
 
-            components = Arrays.copyOf(vectorArray, vectorArray.length);
+            components = Arrays.copyOf(componentsArray, componentsArray.length);
         }
 
-        for (int i = 0; i < min; ++i) {
+        for (int i = 0; i < vector.components.length; ++i) {
             components[i] += vector.components[i];
         }
     }
 
     public void subtract(Vector vector) {
-        int min = Math.min(components.length, vector.components.length);
-
         if (vector.components.length > components.length) {
-            double[] vectorArray = new double[vector.components.length];
-            System.arraycopy(components, 0, vectorArray, 0, min);
+            double[] componentsArray = new double[vector.components.length];
+            System.arraycopy(components, 0, componentsArray, 0, components.length);
 
-            components = Arrays.copyOf(vectorArray, vectorArray.length);
+            components = Arrays.copyOf(componentsArray, componentsArray.length);
         }
 
         for (int i = 0; i < components.length; ++i) {
@@ -116,22 +112,22 @@ public class Vector {
         }
 
         if (index < 0) {
-            throw new IndexOutOfBoundsException("Индекс должен быть не меньше 0");
+            throw new IndexOutOfBoundsException("Индекс должен быть не меньше 0, сейчас он равен " + index);
         }
 
         return components[index];
     }
 
-    public void setElementByIndex(int index, double element) {
+    public void setComponentByIndex(int index, double component) {
         if (index >= components.length) {
             throw new IndexOutOfBoundsException("Индекс не должен быть больше " + (components.length - 1));
         }
 
         if (index < 0) {
-            throw new IndexOutOfBoundsException("Индекс должен быть не меньше 0");
+            throw new IndexOutOfBoundsException("Индекс должен быть не меньше 0, сейчас он равен " + index);
         }
 
-        components[index] = element;
+        components[index] = component;
     }
 
     @Override
@@ -145,10 +141,6 @@ public class Vector {
         }
 
         Vector vector = (Vector) o;
-
-        if (components.length != vector.components.length) {
-            return false;
-        }
 
         return Arrays.equals(components, vector.components);
     }
