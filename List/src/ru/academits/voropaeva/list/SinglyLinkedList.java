@@ -31,10 +31,10 @@ public class SinglyLinkedList<T> {
         checkIndex(index);
 
         ListItem<T> itemByIndex = getItemByIndex(index);
-        T previousData = itemByIndex.getData();
+        T oldData = itemByIndex.getData();
         itemByIndex.setData(newData);
 
-        return previousData;
+        return oldData;
     }
 
     public T deleteByIndex(int index) {
@@ -44,9 +44,9 @@ public class SinglyLinkedList<T> {
             return deleteFirst();
         }
 
-        ListItem<T> nodeByIndex = getItemByIndex(index - 1);
-        T deletedData = nodeByIndex.getNext().getData();
-        nodeByIndex.setNext(nodeByIndex.getNext().getNext());
+        ListItem<T> previousItem = getItemByIndex(index - 1);
+        T deletedData = previousItem.getNext().getData();
+        previousItem.setNext(previousItem.getNext().getNext());
 
         --count;
 
@@ -59,6 +59,11 @@ public class SinglyLinkedList<T> {
     }
 
     public void addByIndex(int index, T newData) {
+        if (index == count - 1) {
+            addLast(newData);
+            return;
+        }
+
         checkIndex(index);
 
         if (index == 0) {
@@ -66,11 +71,11 @@ public class SinglyLinkedList<T> {
             return;
         }
 
-        ListItem<T> nodeByIndex = getItemByIndex(index - 1);
+        ListItem<T> previousItem = getItemByIndex(index - 1);
 
-        ListItem<T> newItem = new ListItem<>(newData, nodeByIndex.getNext());
+        ListItem<T> newItem = new ListItem<>(newData, previousItem.getNext());
 
-        nodeByIndex.setNext(newItem);
+        previousItem.setNext(newItem);
 
         ++count;
     }
@@ -87,6 +92,10 @@ public class SinglyLinkedList<T> {
         }
 
         for (ListItem<T> currentItem = head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
+            if (currentItem.getData() == null) {
+                continue;
+            }
+
             if (currentItem.getData().equals(item)) {
                 previousItem.setNext(previousItem.getNext().getNext());
 
@@ -113,17 +122,15 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
-        if (head == null || count == 1) {
+        if (count <= 1) {
             return;
         }
 
         ListItem<T> currentItem = head.getNext();
         head.setNext(null);
 
-        ListItem<T> nextItem;
-
         while (currentItem.getNext() != null) {
-            nextItem = currentItem.getNext();
+            ListItem<T> nextItem = currentItem.getNext();
             currentItem.setNext(head);
             head = currentItem;
             currentItem = nextItem;
@@ -137,13 +144,22 @@ public class SinglyLinkedList<T> {
         SinglyLinkedList<T> copy = new SinglyLinkedList<>();
 
         for (ListItem<T> item = head; item != null; item = item.getNext()) {
-            copy.addFirst(item.getData());
+            copy.addLast(item.getData());
         }
 
-        copy.reverse();
-        copy.count = count;
-
         return copy;
+    }
+
+    private void addLast(T item) {
+        if (count == 0) {
+            addFirst(item);
+            return;
+        }
+
+        ListItem<T> lastItem = getItemByIndex(count - 1);
+        lastItem.setNext(new ListItem<>(item));
+
+        ++count;
     }
 
     private void checkIndex(int index) {
@@ -172,20 +188,20 @@ public class SinglyLinkedList<T> {
             return "[]";
         }
 
-        StringBuilder items = new StringBuilder();
-        items.append("[");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
 
         ListItem<T> item = head;
 
-        for (int i = 0; i < count; ++i) {
-            items.append(item.getData()).append(", ");
+        while (item != null) {
+            stringBuilder.append(item.getData()).append(", ");
 
             item = item.getNext();
         }
 
-        items.delete(items.length() - 2, items.length());
-        items.append("]");
+        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
+        stringBuilder.append("]");
 
-        return items.toString();
+        return stringBuilder.toString();
     }
 }
