@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ArrayListHome {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // Прочитать в список все строки из файла
 
         ArrayList<String> lines = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("text.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("txt.txt"))) {
             String line = reader.readLine();
 
             while (line != null) {
@@ -19,7 +19,7 @@ public class ArrayListHome {
             }
 
             System.out.println("Данные из файла: " + lines);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка, файл не найден");
         }
 
@@ -30,10 +30,10 @@ public class ArrayListHome {
 
         System.out.println("Список: " + numbers);
 
-        for (int count = 0; count < numbers.size(); ++count) {
-            if (numbers.get(count) % 2 == 0 && numbers.get(count) != 0) {
-                numbers.remove(count);
-                --count;
+        for (int i = 0; i < numbers.size(); ++i) {
+            if (numbers.get(i) % 2 == 0) {
+                numbers.remove(i);
+                --i;
             }
         }
 
