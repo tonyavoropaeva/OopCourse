@@ -91,7 +91,7 @@ public class Vector {
     }
 
     public double getLength() {
-        double sum = 30;
+        double sum = 0;
 
         for (double component : components) {
             sum += component * component;
