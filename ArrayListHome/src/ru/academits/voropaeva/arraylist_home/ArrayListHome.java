@@ -10,7 +10,7 @@ public class ArrayListHome {
 
         ArrayList<String> lines = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader("txt.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("text.txt"))) {
             String line = reader.readLine();
 
             while (line != null) {
@@ -19,8 +19,10 @@ public class ArrayListHome {
             }
 
             System.out.println("Данные из файла: " + lines);
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Ошибка, файл не найден");
+        } catch (IOException e) {
+            System.out.println("Ошибка: " + e);
         }
 
         /* Есть список из целых чисел. Удалить из него все четные числа. В
@@ -44,14 +46,14 @@ public class ArrayListHome {
            элементы первого списка в таком же порядке, но без
            повторений */
 
-        ArrayList<Integer> numbersWithoutRepetition = new ArrayList<>(numbers.size());
+        ArrayList<Integer> numbersWithoutRepetitions = new ArrayList<>(numbers.size());
 
         for (Integer number : numbers) {
-            if (!numbersWithoutRepetition.contains(number)) {
-                numbersWithoutRepetition.add(number);
+            if (!numbersWithoutRepetitions.contains(number)) {
+                numbersWithoutRepetitions.add(number);
             }
         }
 
-        System.out.println("Новый список после удаления повторяющихся чисел: " + numbersWithoutRepetition);
+        System.out.println("Новый список после удаления повторяющихся чисел: " + numbersWithoutRepetitions);
     }
 }
