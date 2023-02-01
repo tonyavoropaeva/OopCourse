@@ -62,7 +62,7 @@ public class Vector {
 
     public void add(Vector vector) {
         if (vector.components.length > components.length) {
-            this.components = Arrays.copyOf(this.components, vector.components.length);
+            components = Arrays.copyOf(components, vector.components.length);
         }
 
         for (int i = 0; i < vector.components.length; ++i) {
@@ -72,7 +72,7 @@ public class Vector {
 
     public void subtract(Vector vector) {
         if (vector.components.length > components.length) {
-            this.components = Arrays.copyOf(this.components, vector.components.length);
+            components = Arrays.copyOf(components, vector.components.length);
         }
 
         for (int i = 0; i < vector.components.length; ++i) {
@@ -93,8 +93,8 @@ public class Vector {
     public double getLength() {
         double sum = 0;
 
-        for (double components : components) {
-            sum += components * components;
+        for (double component : components) {
+            sum += component * component;
         }
 
         return Math.sqrt(sum);
@@ -166,10 +166,10 @@ public class Vector {
     }
 
     public static double getScalarProduct(Vector vector1, Vector vector2) {
-        int minLength = Math.min(vector1.components.length, vector2.components.length);
+        int minSize = Math.min(vector1.components.length, vector2.components.length);
         double result = 0;
 
-        for (int i = 0; i < minLength; i++) {
+        for (int i = 0; i < minSize; i++) {
             result += vector1.components[i] * vector2.components[i];
         }
 
