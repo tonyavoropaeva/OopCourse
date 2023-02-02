@@ -1,6 +1,7 @@
 package ru.academits.voropaeva.list;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class SinglyLinkedList<T> {
     private ListItem<T> head;
@@ -55,16 +56,18 @@ public class SinglyLinkedList<T> {
 
     public void addFirst(T item) {
         head = new ListItem<>(item, head);
+
         ++count;
     }
 
     public void addByIndex(int index, T newData) {
-        if (index == count - 1) {
-            addLast(newData);
-            return;
+        if (index < 0) {
+            throw new IndexOutOfBoundsException("Индекс должен быть не меньше 0, сейчас он равен " + index);
         }
 
-        checkIndex(index);
+        if (index > count) {
+            throw new IndexOutOfBoundsException("Индекс должен быть не больше " + count + ", сейчас он равен " + index);
+        }
 
         if (index == 0) {
             addFirst(newData);
@@ -72,9 +75,7 @@ public class SinglyLinkedList<T> {
         }
 
         ListItem<T> previousItem = getItemByIndex(index - 1);
-
         ListItem<T> newItem = new ListItem<>(newData, previousItem.getNext());
-
         previousItem.setNext(newItem);
 
         ++count;
@@ -85,18 +86,14 @@ public class SinglyLinkedList<T> {
             return false;
         }
 
-        if (head.getData().equals(item)) {
+        if (Objects.equals(head.getData(), item)) {
             deleteFirst();
 
             return true;
         }
 
         for (ListItem<T> currentItem = head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
-            if (currentItem.getData() == null) {
-                continue;
-            }
-
-            if (currentItem.getData().equals(item)) {
+            if (Objects.equals(currentItem.getData(), item)) {
                 previousItem.setNext(previousItem.getNext().getNext());
 
                 --count;
@@ -143,32 +140,33 @@ public class SinglyLinkedList<T> {
     public SinglyLinkedList<T> copy() {
         SinglyLinkedList<T> copy = new SinglyLinkedList<>();
 
-        for (ListItem<T> item = head; item != null; item = item.getNext()) {
-            copy.addLast(item.getData());
+        if (count != 0) {
+            copy.head = new ListItem<>(head.getData());
+
+            ++copy.count;
+        }
+
+        for (ListItem<T> item = head.getNext(), currentItemCopy = copy.head; item != null; item = item.getNext(), currentItemCopy = currentItemCopy.getNext()) {
+            ListItem<T> nextItemCopy = new ListItem<>(item.getData());
+
+            currentItemCopy.setNext(nextItemCopy);
+            ++copy.count;
         }
 
         return copy;
     }
 
-    private void addLast(T item) {
-        if (count == 0) {
-            addFirst(item);
-            return;
-        }
-
-        ListItem<T> lastItem = getItemByIndex(count - 1);
-        lastItem.setNext(new ListItem<>(item));
-
-        ++count;
+    public void addLast(T item) {
+        addByIndex(count, item);
     }
 
     private void checkIndex(int index) {
         if (index < 0) {
-            throw new IndexOutOfBoundsException("Индекс должен быть не меньше 0");
+            throw new IndexOutOfBoundsException("Индекс должен быть не меньше 0, сейчас он равен " + index);
         }
 
         if (index >= count) {
-            throw new IndexOutOfBoundsException("Индекс должен быть не больше " + (count - 1));
+            throw new IndexOutOfBoundsException("Индекс должен быть не больше " + (count - 1) + ", сейчас он равен " + index);
         }
     }
 

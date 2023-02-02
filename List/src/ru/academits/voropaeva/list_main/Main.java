@@ -2,39 +2,33 @@ package ru.academits.voropaeva.list_main;
 
 import ru.academits.voropaeva.list.SinglyLinkedList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-        SinglyLinkedList<Integer> newList = new SinglyLinkedList<>();
+        SinglyLinkedList<Integer> testList = new SinglyLinkedList<>();
+        testList.addFirst(5);
+        testList.addFirst(4);
+        testList.addFirst(null);
+        testList.addFirst(3);
+        testList.addFirst(2);
+        testList.addFirst(null);
 
-        newList.addFirst(5);
-        newList.addFirst(4);
-        newList.addFirst(null);
-        newList.addFirst(3);
-        newList.addFirst(2);
-        newList.addFirst(0);
-
-
-        // System.out.println(newList.getCount());
-
-        // System.out.println(newList.getFirst());
-        // System.out.println(newList.getByIndex(5));
-        // System.out.println(newList.setByIndex(0, 100));
-        // System.out.println(newList.deleteByIndex(0));
-         newList.addByIndex(5, 100);
-        // System.out.println(newList.deleteByData(5));
-        // System.out.println(newList.deleteFirst());
-        // newList.reverse();
-        // SinglyLinkedList<Integer> list = newList.copy();
-
-      /*  SinglyLinkedList<Integer> list = newList.copy();
-        System.out.println(list);
-        System.out.println(list.getCount());*/
-
+        System.out.println("Односвязный список: " + testList);
+        System.out.println("Размер: " + testList.getCount());
         System.out.println("----------------");
-        System.out.println(newList);
-        System.out.println(newList.getCount());
+
+        SinglyLinkedList<Integer> testListCopy = testList.copy();
+
+        System.out.println("Его копия: " + testListCopy);
+        System.out.println("Размер: " + testListCopy.getCount());
+        System.out.println("Первый элемент: " + testListCopy.getFirst());
+        System.out.println("Эл-нт по индексу 5: " + testListCopy.getByIndex(5));
+
+        testListCopy.setByIndex(0, 100);
+        testListCopy.deleteByIndex(0);
+        testListCopy.addByIndex(1, 100);
+        testListCopy.deleteByData(2);
+        testListCopy.deleteFirst();
+        testListCopy.reverse();
+        testListCopy.addLast(50);
     }
 }
