@@ -81,19 +81,19 @@ public class SinglyLinkedList<T> {
         ++count;
     }
 
-    public boolean deleteByData(T item) {
+    public boolean deleteByData(T data) {
         if (head == null) {
             return false;
         }
 
-        if (Objects.equals(head.getData(), item)) {
+        if (Objects.equals(head.getData(), data)) {
             deleteFirst();
 
             return true;
         }
 
         for (ListItem<T> currentItem = head.getNext(), previousItem = head; currentItem != null; previousItem = currentItem, currentItem = currentItem.getNext()) {
-            if (Objects.equals(currentItem.getData(), item)) {
+            if (Objects.equals(currentItem.getData(), data)) {
                 previousItem.setNext(previousItem.getNext().getNext());
 
                 --count;
@@ -140,17 +140,17 @@ public class SinglyLinkedList<T> {
     public SinglyLinkedList<T> copy() {
         SinglyLinkedList<T> copy = new SinglyLinkedList<>();
 
-        if (count != 0) {
-            copy.head = new ListItem<>(head.getData());
-
-            ++copy.count;
+        if (count == 0) {
+            return copy;
         }
+
+        copy.head = new ListItem<>(head.getData());
+        copy.count = count;
 
         for (ListItem<T> item = head.getNext(), currentItemCopy = copy.head; item != null; item = item.getNext(), currentItemCopy = currentItemCopy.getNext()) {
             ListItem<T> nextItemCopy = new ListItem<>(item.getData());
 
             currentItemCopy.setNext(nextItemCopy);
-            ++copy.count;
         }
 
         return copy;
