@@ -2,33 +2,46 @@ package ru.academits.voropaeva.tree_main;
 
 import ru.academits.voropaeva.tree.Tree;
 
+import java.util.Comparator;
+import java.util.function.Consumer;
+
 public class Main {
     public static void main(String[] args) {
-        Tree<Integer> tree = new Tree<>();
-        tree.addNode(10);
-        tree.addNode(3);
-        tree.addNode(11);
-        tree.addNode(1);
-        tree.addNode(5);
-        tree.addNode(4);
-        tree.addNode(8);
-        tree.addNode(6);
-        tree.addNode(7);
-        tree.addNode(14);
-        tree.addNode(13);
+        Comparator<Integer> comparator = Integer::compareTo;
 
-        Integer data = (tree.searchByData(20) == null) ? null : (tree.searchByData(20).getData());
-        System.out.println(data);
+        Tree<Integer> tree = new Tree<>(comparator);
+        tree.add(11);
+        tree.add(3);
+        tree.add(12);
+        tree.add(1);
+        tree.add(null);
+        tree.add(8);
+        tree.add(9);
+        tree.add(10);
+        tree.add(6);
+        tree.add(4);
+        tree.add(5);
+        tree.add(15);
+        tree.add(14);
 
-        System.out.println(tree.deleteByData(5));
+        Consumer<Integer> print = x -> System.out.print(x + " ");
 
-        System.out.println(tree.getNodeCount());
+        System.out.println("Поиск по значению: " + tree.contains(null));
 
-        System.out.println("-----------------------");
-        tree.printDepthFirstRecursive(tree.getRoot());
-        System.out.println("-----------------------");
-        tree.printBreadthFirst();
-        System.out.println("-----------------------");
-        tree.printDepthFirst();
+        System.out.println("Удаление по значению: " + tree.deleteByData(3));
+
+        System.out.print("Обход в ширину:               ");
+        tree.printBreadthFirst(print);
+        System.out.println(System.lineSeparator() + "-----------------------");
+
+        System.out.print("Обход в глубину с рекурсией:  ");
+        tree.printDepthFirstRecursive(print);
+        System.out.println(System.lineSeparator() + "-----------------------");
+
+        System.out.print("Обход в глубину без рекурсии: ");
+        tree.printDepthFirst(print);
+        System.out.println(System.lineSeparator() + "-----------------------");
+
+        System.out.println("Размер дерева: " + tree.getCount());
     }
 }
