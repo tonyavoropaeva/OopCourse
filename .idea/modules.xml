@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/HashTable/HashTable.iml" filepath="$PROJECT_DIR$/HashTable/HashTable.iml" />
       <module fileurl="file://$PROJECT_DIR$/Lambda/Lambda.iml" filepath="$PROJECT_DIR$/Lambda/Lambda.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/OopCourse.iml" filepath="$PROJECT_DIR$/.idea/OopCourse.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ParserCSV/ParserCSV.iml" filepath="$PROJECT_DIR$/ParserCSV/ParserCSV.iml" />
       <module fileurl="file://$PROJECT_DIR$/ParsingCsv.iml" filepath="$PROJECT_DIR$/ParsingCsv.iml" />
       <module fileurl="file://$PROJECT_DIR$/Range/Range.iml" filepath="$PROJECT_DIR$/Range/Range.iml" />
       <module fileurl="file://$PROJECT_DIR$/Shapes/Shapes.iml" filepath="$PROJECT_DIR$/Shapes/Shapes.iml" />
