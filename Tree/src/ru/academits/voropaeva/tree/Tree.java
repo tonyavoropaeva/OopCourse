@@ -20,36 +20,41 @@ public class Tree<T> {
         return nodesCount;
     }
 
-    private int getComparison(T dataOne, T dataTwo) {
-        if (dataOne == null && dataTwo == null) {
+    private int compare(T data1, T data2) {
+        if (comparator != null) {
+            return comparator.compare(data1, data2);
+        }
+
+        if (data1 == null && data2 == null) {
             return 0;
         }
 
-        if (dataOne == null) {
+        if (data1 == null) {
             return -1;
         }
 
-        if (dataTwo == null) {
+        if (data2 == null) {
             return 1;
         }
 
         //noinspection unchecked
-        return comparator == null ? ((Comparable<T>) dataOne).compareTo(dataTwo) : comparator.compare(dataOne, dataTwo);
+        return ((Comparable<T>) data1).compareTo(data2);
     }
 
     public void add(T data) {
         TreeNode<T> newNode = new TreeNode<>(data);
-        TreeNode<T> currentNode = root;
 
-        if (currentNode == null) {
+        if (root == null) {
             root = newNode;
             ++nodesCount;
 
             return;
         }
 
+        TreeNode<T> currentNode = root;
+
         while (true) {
-            if (getComparison(data, currentNode.getData()) < 0) {
+            if (compare(data, currentNode.getData()) < 0) {
                 if (currentNode.getLeft() != null) {
                     currentNode = currentNode.getLeft();
                 } else {
@@ -79,13 +84,13 @@ public class Tree<T> {
         TreeNode<T> currentNode = root;
 
         while (true) {
-            T currentData = currentNode.getData();
+            int comparisonResult = compare(data, currentNode.getData());
 
-            if (getComparison(data, currentData) == 0) {
+            if (comparisonResult == 0) {
                 return true;
             }
 
-            if (getComparison(data, currentData) < 0) {
+            if (comparisonResult < 0) {
                 if (currentNode.getLeft() != null) {
                     currentNode = currentNode.getLeft();
                 } else {
@@ -107,14 +112,14 @@ public class Tree<T> {
         }
 
         TreeNode<T> nodeToDelete = root;
-        TreeNode<T> nodeToDeleteParent = root;
+        TreeNode<T> nodeToDeleteParent = null;
         boolean nodeToDeleteIsLeftChild = false;
-        T nodeToDeleteData;
+        int comparisonResult;
 
-        while (!Objects.equals((nodeToDeleteData = nodeToDelete.getData()), (data))) {
+        while ((comparisonResult = compare(data, nodeToDelete.getData())) != 0) {
             nodeToDeleteParent = nodeToDelete;
 
-            if (getComparison(data, nodeToDeleteData) < 0) {
+            if (comparisonResult < 0) {
                 nodeToDeleteIsLeftChild = true;
                 nodeToDelete = nodeToDelete.getLeft();
             } else {
@@ -130,7 +135,7 @@ public class Tree<T> {
         --nodesCount;
 
         if (nodeToDelete.getLeft() == null && nodeToDelete.getRight() == null) {
-            if (nodeToDelete == root) {
+            if (nodeToDeleteParent == null) {
                 root = null;
             } else {
                 if (nodeToDeleteIsLeftChild) {
@@ -144,7 +149,7 @@ public class Tree<T> {
         }
 
         if (nodeToDelete.getLeft() == null) {
-            if (nodeToDelete == root) {
+            if (nodeToDeleteParent == null) {
                 root = nodeToDelete.getRight();
             } else if (nodeToDeleteIsLeftChild) {
                 nodeToDeleteParent.setLeft(nodeToDelete.getRight());
@@ -156,7 +161,7 @@ public class Tree<T> {
         }
 
         if (nodeToDelete.getRight() == null) {
-            if (nodeToDelete == root) {
+            if (nodeToDeleteParent == null) {
                 root = nodeToDelete.getLeft();
             } else if (nodeToDeleteIsLeftChild) {
                 nodeToDeleteParent.setLeft(nodeToDelete.getLeft());
@@ -182,7 +187,7 @@ public class Tree<T> {
 
         heirNode.setLeft(nodeToDelete.getLeft());
 
-        if (nodeToDelete == root) {
+        if (nodeToDeleteParent == null) {
             root = heirNode;
         } else if (nodeToDeleteIsLeftChild) {
             nodeToDeleteParent.setLeft(heirNode);
@@ -194,7 +199,7 @@ public class Tree<T> {
     }
 
     // Обход в ширину +
-    public void printBreadthFirst(Consumer<T> function) {
+    public void bypassBreadthFirst(Consumer<T> consumer) {
         if (root == null) {
             return;
         }
@@ -206,7 +211,7 @@ public class Tree<T> {
         while (!queue.isEmpty()) {
             TreeNode<T> currentNode = queue.poll();
 
-            function.accept(currentNode.getData());
+            consumer.accept(currentNode.getData());
 
             if (currentNode.getLeft() != null) {
                 queue.offer(currentNode.getLeft());
@@ -219,28 +224,28 @@ public class Tree<T> {
     }
 
     // Обход в глубину с рекурсией +
-    public void printDepthFirstRecursive(Consumer<T> function) {
+    public void bypassDepthFirstRecursive(Consumer<T> consumer) {
         if (root == null) {
             return;
         }
 
-        visit(root, function);
+        visit(root, consumer);
     }
 
-    private void visit(TreeNode<T> node, Consumer<T> function) {
-        function.accept(node.getData());
+    private void visit(TreeNode<T> node, Consumer<T> consumer) {
+        consumer.accept(node.getData());
 
         if (node.getLeft() != null) {
-            visit(node.getLeft(), function);
+            visit(node.getLeft(), consumer);
         }
 
         if (node.getRight() != null) {
-            visit(node.getRight(), function);
+            visit(node.getRight(), consumer);
         }
     }
 
     // Обход в глубину без рекурсии +
-    public void printDepthFirst(Consumer<T> function) {
+    public void bypassDepthFirst(Consumer<T> consumer) {
         if (root == null) {
             return;
         }
@@ -252,7 +257,7 @@ public class Tree<T> {
         while (!stack.isEmpty()) {
             TreeNode<T> currentNode = stack.pop();
 
-            function.accept(currentNode.getData());
+            consumer.accept(currentNode.getData());
 
             if (currentNode.getRight() != null) {
                 stack.push(currentNode.getRight());

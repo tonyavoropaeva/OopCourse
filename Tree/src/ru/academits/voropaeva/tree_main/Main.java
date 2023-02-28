@@ -7,9 +7,9 @@ import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) {
-        Comparator<Integer> comparator = Integer::compareTo;
+        // Comparator<Integer> comparator = Integer::compareTo;
 
-        Tree<Integer> tree = new Tree<>(comparator);
+        Tree<Integer> tree = new Tree<>();
         tree.add(11);
         tree.add(3);
         tree.add(12);
@@ -31,15 +31,15 @@ public class Main {
         System.out.println("Удаление по значению: " + tree.deleteByData(3));
 
         System.out.print("Обход в ширину:               ");
-        tree.printBreadthFirst(print);
+        tree.bypassBreadthFirst(print);
         System.out.println(System.lineSeparator() + "-----------------------");
 
         System.out.print("Обход в глубину с рекурсией:  ");
-        tree.printDepthFirstRecursive(print);
+        tree.bypassDepthFirstRecursive(print);
         System.out.println(System.lineSeparator() + "-----------------------");
 
         System.out.print("Обход в глубину без рекурсии: ");
-        tree.printDepthFirst(print);
+        tree.bypassDepthFirst(print);
         System.out.println(System.lineSeparator() + "-----------------------");
 
         System.out.println("Размер дерева: " + tree.getCount());
