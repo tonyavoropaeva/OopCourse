@@ -4,27 +4,29 @@ import ru.academits.voropaeva.arraylist.MyArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        MyArrayList<String> numbersOne = new MyArrayList<>();
-        numbersOne.add("0");
-        numbersOne.add("1");
-        numbersOne.add("2");
-        numbersOne.add("3");
-        numbersOne.add(null);
-        numbersOne.add("5");
-        numbersOne.add("6");
-        numbersOne.add("7");
-        numbersOne.add(null);
-        numbersOne.add("9");
-        numbersOne.add(null);
-        numbersOne.add("11");
+        MyArrayList<String> numbers1 = new MyArrayList<>();
+        numbers1.add("0");
+        numbers1.add("1");
+        numbers1.add("2");
+        numbers1.add("3");
+        numbers1.add(null);
+        numbers1.add("5");
+        numbers1.add("6");
+        numbers1.add("7");
+        numbers1.add(null);
+        numbers1.add("9");
+        numbers1.add(null);
+        numbers1.add("11");
 
-        MyArrayList<String> numbersTwo = new MyArrayList<>();
-        numbersTwo.add("1000");
-        numbersTwo.add(null);
+        MyArrayList<String> numbers2 = new MyArrayList<>();
+        numbers2.add("1000");
+        numbers2.add(null);
 
-        System.out.println("size: " + numbersOne.size());
-        System.out.println(numbersOne.contains("100"));
-        System.out.println(numbersOne.remove("300"));
-        System.out.println(numbersOne.addAll(10, numbersTwo));
+        System.out.println("size: " + numbers1.size());
+        System.out.println(numbers1.contains("100"));
+        System.out.println(numbers1.remove("300"));
+        System.out.println(numbers1.addAll(10, numbers2));
+        System.out.println(numbers1);
+        System.out.println("size: " + numbers1.size());
     }
 }

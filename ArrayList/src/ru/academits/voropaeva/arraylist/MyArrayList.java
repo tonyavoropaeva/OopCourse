@@ -150,14 +150,17 @@ public class MyArrayList<E> implements List<E> {
             return false;
         }
 
-        int collectionIndex = index;
+        System.arraycopy(items, index, items, index + collection.size(), size - index);
+
+        int i = index;
 
         for (E element : collection) {
-            add(collectionIndex, element);
+            items[i] = element;
 
-            collectionIndex++;
+            i++;
         }
 
+        size += collection.size();
         ++modCount;
 
         return true;
@@ -169,11 +172,10 @@ public class MyArrayList<E> implements List<E> {
             return;
         }
 
-        ++modCount;
-
         Arrays.fill(items, 0, size, null);
 
         size = 0;
+        ++modCount;
     }
 
     @Override
@@ -191,9 +193,7 @@ public class MyArrayList<E> implements List<E> {
             clear();
         } else {
             for (int i = 0; i < size; i++) {
-                E current = items[i];
-
-                if (!collection.contains(current)) {
+                if (!collection.contains(items[i])) {
                     remove(i);
 
                     --i;
@@ -213,9 +213,7 @@ public class MyArrayList<E> implements List<E> {
         int initialSize = size;
 
         for (int i = 0; i < size; i++) {
-            E current = items[i];
-
-            if (collection.contains(current)) {
+            if (collection.contains(items[i])) {
                 remove(i);
 
                 --i;
