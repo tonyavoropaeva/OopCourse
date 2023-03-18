@@ -12,23 +12,27 @@ public class Main {
         hashTable.add("60");
         hashTable.add("70");
         hashTable.add("40");
+        hashTable.add("40");
+        hashTable.add("40");
         hashTable.add("10");
         hashTable.add("10");
         hashTable.add(null);
 
         System.out.println("Размер: " + hashTable.size());
-        System.out.println("Вместимость: " + hashTable.getCapacity());
         System.out.println(hashTable.contains(null));
         System.out.println(Arrays.toString(hashTable.toArray()));
 
         String[] array = new String[15];
         System.out.println(Arrays.toString(hashTable.toArray(array)));
 
-        ArrayList<String> lines = new ArrayList<>(Arrays.asList("10", "10", "40", null));
-        System.out.println(hashTable.containsAll(lines));
+        System.out.println(Arrays.toString(hashTable.toArray()));
 
-        for (String s : hashTable) {
-            System.out.print(s + ", ");
-        }
+        ArrayList<String> lines = new ArrayList<>(Arrays.asList("10", "40", null));
+
+        System.out.println(hashTable.retainAll(lines));
+
+        //  System.out.println(hashTable.removeAll(lines));
+
+        System.out.println(Arrays.toString(hashTable.toArray()));
     }
 }
