@@ -8,7 +8,7 @@ public class HashTable<E> implements Collection<E> {
     private int modCount;
 
     public HashTable(int capacity) {
-        if (capacity < 0) {
+        if (capacity <= 0) {
             throw new IndexOutOfBoundsException("Вместимость не может быть отрицательной, сейчас она равна " + capacity);
         }
 
@@ -33,14 +33,12 @@ public class HashTable<E> implements Collection<E> {
 
     @Override
     public boolean contains(Object object) {
-        if (size == 0) {
-            return false;
-        }
+        ArrayList<E> list = items[getIndex(object)];
 
-        return (items[getIndex(object)]).contains(object);
+        return list != null && list.contains(object);
     }
 
-    private class Iterator implements java.util.Iterator<E> {
+    private class HashTableIterator implements Iterator<E> {
         private int count;
         private int currentIndexInArray;
         private int currentIndexInList;
@@ -61,16 +59,16 @@ public class HashTable<E> implements Collection<E> {
                 throw new ConcurrentModificationException("Хэш-таблица была изменена во время обхода");
             }
 
-            ArrayList<E> currentItem = items[currentIndexInArray];
+            ArrayList<E> currentList = items[currentIndexInArray];
 
-            while (currentItem == null || currentItem.size() == 0) {
+            while (currentList == null || currentList.isEmpty()) {
                 ++currentIndexInArray;
-                currentItem = items[currentIndexInArray];
+                currentList = items[currentIndexInArray];
             }
 
-            E result = currentItem.get(currentIndexInList);
+            E result = currentList.get(currentIndexInList);
 
-            if (currentIndexInList == currentItem.size() - 1) {
+            if (currentIndexInList == currentList.size() - 1) {
                 ++currentIndexInArray;
                 currentIndexInList = 0;
             } else {
@@ -84,19 +82,19 @@ public class HashTable<E> implements Collection<E> {
     }
 
     @Override
-    public java.util.Iterator<E> iterator() {
-        return new Iterator();
+    public Iterator<E> iterator() {
+        return new HashTableIterator();
     }
 
     @Override
     public Object[] toArray() {
         Object[] array = new Object[size];
-        int index = 0;
+        int i = 0;
 
         for (E item : this) {
-            array[index] = item;
+            array[i] = item;
 
-            ++index;
+            ++i;
         }
 
         return array;
@@ -139,11 +137,7 @@ public class HashTable<E> implements Collection<E> {
     public boolean remove(Object object) {
         ArrayList<E> list = items[getIndex(object)];
 
-        if (list == null) {
-            return false;
-        }
-
-        if (list.remove(object)) {
+        if (list != null && list.remove(object)) {
             --size;
             ++modCount;
 
@@ -203,15 +197,11 @@ public class HashTable<E> implements Collection<E> {
         if (collection.isEmpty()) {
             clear();
         } else {
-            Set<Object> set = new HashSet<>();
-
             for (Object object : toArray()) {
                 if (!collection.contains(object)) {
-                    set.add(object);
+                    remove(object);
                 }
             }
-
-            removeAll(set);
         }
 
         return initialSize != size;
@@ -230,8 +220,10 @@ public class HashTable<E> implements Collection<E> {
     }
 
     private int getIndex(Object object) {
-        int hash = object != null ? object.hashCode() : 0;
+        if (object == null) {
+            return 0;
+        }
 
-        return Math.abs(hash % items.length);
+        return Math.abs(object.hashCode() % items.length);
     }
 }
