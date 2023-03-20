@@ -1,32 +1,18 @@
 package ru.academits.voropaeva.temperature.model;
 
-public class CelsiusScale implements TemperatureScale {
-    double temperature;
-
+public class CelsiusScale implements Scale {
     @Override
-    public double getTemperature() {
+    public double convertToCelsius(double temperature) {
         return temperature;
     }
 
     @Override
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public double convertFromCelsius(double temperature) {
+        return temperature;
     }
 
     @Override
-    public CelsiusScale convertToCelsius() {
-        return CELSIUS_SCALE;
-    }
-
-    public FahrenheitScale convertToFahrenheit() {
-        FAHRENHEIT_SCALE.setTemperature(temperature * 1.8 + 32);
-
-        return FAHRENHEIT_SCALE;
-    }
-
-    public KelvinScale convertToKelvin() {
-        KELVIN_SCALE.setTemperature(temperature + 273.15);
-
-        return KELVIN_SCALE;
+    public String toString() {
+        return "Градус Цельсия °C";
     }
 }

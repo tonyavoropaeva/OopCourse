@@ -1,22 +1,18 @@
 package ru.academits.voropaeva.temperature.model;
 
-public class FahrenheitScale implements TemperatureScale {
-    double temperature;
-
+public class FahrenheitScale implements Scale {
     @Override
-    public double getTemperature() {
-        return temperature;
+    public double convertToCelsius(double temperature) {
+        return (temperature - 32) / 1.8;
     }
 
     @Override
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public double convertFromCelsius(double temperature) {
+        return temperature * 1.8 + 32;
     }
 
     @Override
-    public CelsiusScale convertToCelsius() {
-        CELSIUS_SCALE.setTemperature((temperature - 32) / 1.8);
-
-        return CELSIUS_SCALE;
+    public String toString() {
+        return "Градус Фаренгейта °F";
     }
 }

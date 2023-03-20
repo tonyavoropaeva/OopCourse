@@ -1,23 +1,18 @@
 package ru.academits.voropaeva.temperature.veiw;
 
-import ru.academits.voropaeva.temperature.model.TemperatureScale;
+import ru.academits.voropaeva.temperature.model.Model;
+import ru.academits.voropaeva.temperature.model.Scale;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static ru.academits.voropaeva.temperature.model.TemperatureScale.*;
-
 public class SwingView implements View {
-    private TemperatureScale model;
+    private final Model model;
     private JFrame frame;
     private JTextField textFieldInput;
-    private JRadioButton celsiusButtonFrom;
-    private JRadioButton fahrenheitButtonFrom;
-    private JRadioButton celsiusButtonIn;
-    private JRadioButton fahrenheitButtonIn;
     private JTextField textFieldOutput;
 
-    public SwingView(TemperatureScale model) {
+    public SwingView(Model model) {
         this.model = model;
     }
 
@@ -33,16 +28,12 @@ public class SwingView implements View {
 
             JLabel labelConvertFrom = new JLabel("Конвертировать из:");
             textFieldInput = new JTextField(10);
-            ButtonGroup buttonGroupFrom = new ButtonGroup();
-            celsiusButtonFrom = new JRadioButton(CELSIUS_SCALE.toString(), true);
-            fahrenheitButtonFrom = new JRadioButton(FAHRENHEIT_SCALE.toString());
-            JRadioButton kelvinButtonFrom = new JRadioButton(KELVIN_SCALE.toString());
-            JLabel labelConvertIn = new JLabel("Конвертировать в:");
-            ButtonGroup buttonGroupIn = new ButtonGroup();
-            celsiusButtonIn = new JRadioButton(CELSIUS_SCALE.toString(), true);
-            fahrenheitButtonIn = new JRadioButton(FAHRENHEIT_SCALE.toString());
-            JRadioButton kelvinButtonIn = new JRadioButton(KELVIN_SCALE.toString());
+            JComboBox<Object> comboBoxFrom = new JComboBox<>(model.getScales().toArray());
+
+            JLabel labelConvertTo = new JLabel("Конвертировать в:");
             textFieldOutput = new JTextField(10);
+            JComboBox<Object> comboBoxTo = new JComboBox<>(model.getScales().toArray());
+
             JButton calculateButton = new JButton("Рассчитать");
 
             GridBagLayout gridBagLayout = new GridBagLayout();
@@ -63,21 +54,15 @@ public class SwingView implements View {
             textFieldInput.setPreferredSize(new Dimension(15, 30));
             textFieldInput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 17));
 
-            buttonGroupFrom.add(celsiusButtonFrom);
-            buttonGroupFrom.add(fahrenheitButtonFrom);
-            buttonGroupFrom.add(kelvinButtonFrom);
-
             gridBagLayout.setConstraints(textFieldInput, gridBagConstraintsLineTwo);
-            gridBagLayout.setConstraints(celsiusButtonFrom, gridBagConstraintsLineTwo);
-            gridBagLayout.setConstraints(fahrenheitButtonFrom, gridBagConstraintsLineTwo);
-            gridBagLayout.setConstraints(kelvinButtonFrom, gridBagConstraintsLineTwo);
+            gridBagLayout.setConstraints(comboBoxFrom, gridBagConstraintsLineTwo);
 
             //СТРОКА 3
             GridBagConstraints gridBagConstraintsLineThree = new GridBagConstraints();
             gridBagConstraintsLineThree.gridx = GridBagConstraints.RELATIVE;
             gridBagConstraintsLineThree.gridy = 2;
 
-            gridBagLayout.setConstraints(labelConvertIn, gridBagConstraintsLineThree);
+            gridBagLayout.setConstraints(labelConvertTo, gridBagConstraintsLineThree);
 
             //СТРОКА 4
             GridBagConstraints gridBagConstraintsLineFour = new GridBagConstraints();
@@ -85,18 +70,12 @@ public class SwingView implements View {
             gridBagConstraintsLineFour.gridx = GridBagConstraints.RELATIVE;
             gridBagConstraintsLineFour.gridy = 3;
 
-            buttonGroupIn.add(celsiusButtonIn);
-            buttonGroupIn.add(fahrenheitButtonIn);
-            buttonGroupIn.add(kelvinButtonIn);
-
             textFieldOutput.setPreferredSize(new Dimension(15, 30));
             textFieldOutput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 17));
             textFieldOutput.setEditable(false);  // запретили редактирование
 
             gridBagLayout.setConstraints(textFieldOutput, gridBagConstraintsLineFour);
-            gridBagLayout.setConstraints(celsiusButtonIn, gridBagConstraintsLineFour);
-            gridBagLayout.setConstraints(fahrenheitButtonIn, gridBagConstraintsLineFour);
-            gridBagLayout.setConstraints(kelvinButtonIn, gridBagConstraintsLineFour);
+            gridBagLayout.setConstraints(comboBoxTo, gridBagConstraintsLineFour);
 
             // СТРОКА 5
             GridBagConstraints gridBagConstraintsFive = new GridBagConstraints();
@@ -108,44 +87,26 @@ public class SwingView implements View {
 
             panel.add(labelConvertFrom);
             panel.add(textFieldInput);
-            panel.add(celsiusButtonFrom);
-            panel.add(fahrenheitButtonFrom);
-            panel.add(kelvinButtonFrom);
-            panel.add(labelConvertIn);
+            panel.add(comboBoxFrom);
+            panel.add(labelConvertTo);
             panel.add(textFieldOutput);
-            panel.add(celsiusButtonIn);
-            panel.add(fahrenheitButtonIn);
-            panel.add(kelvinButtonIn);
+            panel.add(comboBoxTo);
             panel.add(calculateButton);
             frame.add(panel);
 
             calculateButton.addActionListener(e -> {
-                if (celsiusButtonFrom.isSelected()) {
-                    model = CELSIUS_SCALE;
-                } else if (fahrenheitButtonFrom.isSelected()) {
-                    model = FAHRENHEIT_SCALE;
-                } else {
-                    model = KELVIN_SCALE;
-                }
-
                 try {
-                    model.setTemperature(Double.parseDouble(textFieldInput.getText()));
+                    textFieldOutput.setText(String.format(
+                            "%.3f",
+                            model.convert(
+                                    (Scale) comboBoxFrom.getSelectedItem(),
+                                    (Scale) comboBoxTo.getSelectedItem(),
+                                    Double.parseDouble(textFieldInput.getText())
+                            )
+                    ));
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(frame, "Введите число!", "Ошибка", JOptionPane.ERROR_MESSAGE);
-                    return;
                 }
-
-                model.convertToCelsius();
-
-                if (celsiusButtonIn.isSelected()) {
-                    model = CELSIUS_SCALE.convertToCelsius();
-                } else if (fahrenheitButtonIn.isSelected()) {
-                    model = CELSIUS_SCALE.convertToFahrenheit();
-                } else {
-                    model = CELSIUS_SCALE.convertToKelvin();
-                }
-
-                textFieldOutput.setText(String.format("%.3f", model.getTemperature()));
             });
         });
     }
