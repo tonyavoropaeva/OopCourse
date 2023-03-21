@@ -33,14 +33,44 @@ public class Range {
         return number >= from && to >= number;
     }
 
-    /*
-    public double getIntervalsIntersection(Range rangeAB, Range rangeBC) {
+    public Range getIntervalIntersection(Range range) {
+        if (from < range.to && to > range.from) {
+            return new Range(Math.max(from, range.from), Math.min(to, range.to));
+        }
 
-        if (rangeAB.retainAll(rangeBC) || rangeBC.retainAll(rangeAB)) {
+        return null;
+    }
 
-        } else {
+    public Range[] getIntervalUnion(Range range) {
+        if (from <= range.to && to >= range.from) {
+            return new Range[]{new Range(Math.min(from, range.from), Math.max(to, range.to))};
+        }
+
+        return new Range[]{new Range(from, to), new Range(range.from, range.to)};
+    }
+
+    public Range[] getIntervalDifference(Range range) {
+        if (from >= range.from && to <= range.to) {
             return null;
         }
+
+        if (from < range.to && to > range.from) {
+            if (from >= range.from) {
+                return new Range[]{new Range(range.to, to)};
+            }
+
+            if (to <= range.to) {
+                return new Range[]{new Range(from, range.from)};
+            }
+
+            return new Range[]{new Range(from, range.from), new Range(range.to, to)};
+        }
+
+        return new Range[]{new Range(from, to)};
     }
-     */
+
+    @Override
+    public String toString() {
+        return "(" + from + ", " + to + ")";
+    }
 }
