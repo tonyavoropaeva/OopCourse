@@ -9,7 +9,7 @@ public class HashTable<E> implements Collection<E> {
 
     public HashTable(int capacity) {
         if (capacity <= 0) {
-            throw new IndexOutOfBoundsException("Вместимость не может быть отрицательной, сейчас она равна " + capacity);
+            throw new IndexOutOfBoundsException("Вместимость должна быть больше 0, сейчас она равна " + capacity);
         }
 
         //noinspection unchecked
@@ -197,9 +197,17 @@ public class HashTable<E> implements Collection<E> {
         if (collection.isEmpty()) {
             clear();
         } else {
-            for (Object object : toArray()) {
-                if (!collection.contains(object)) {
-                    remove(object);
+            for (ArrayList<E> list : items) {
+                if (list == null) {
+                    continue;
+                }
+
+                for (int j = 0; j < list.size(); j++) {
+                    if (!collection.contains(list.get(j))) {
+                        remove(list.get(j));
+
+                        --j;
+                    }
                 }
             }
         }
@@ -213,7 +221,7 @@ public class HashTable<E> implements Collection<E> {
             return;
         }
 
-        Arrays.fill(items, 0, items.length, null);
+        Arrays.fill(items, null);
 
         size = 0;
         ++modCount;
