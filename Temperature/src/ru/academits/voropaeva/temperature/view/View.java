@@ -1,4 +1,4 @@
-package ru.academits.voropaeva.temperature.veiw;
+package ru.academits.voropaeva.temperature.view;
 
 public interface View {
     void initialize();

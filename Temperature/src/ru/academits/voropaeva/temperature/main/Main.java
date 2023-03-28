@@ -1,8 +1,8 @@
 package ru.academits.voropaeva.temperature.main;
 
 import ru.academits.voropaeva.temperature.model.*;
-import ru.academits.voropaeva.temperature.veiw.SwingView;
-import ru.academits.voropaeva.temperature.veiw.View;
+import ru.academits.voropaeva.temperature.view.SwingView;
+import ru.academits.voropaeva.temperature.view.View;
 
 import java.util.ArrayList;
 import java.util.Arrays;

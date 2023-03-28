@@ -1,4 +1,4 @@
-package ru.academits.voropaeva.temperature.veiw;
+package ru.academits.voropaeva.temperature.view;
 
 import ru.academits.voropaeva.temperature.model.Model;
 import ru.academits.voropaeva.temperature.model.Scale;
@@ -28,11 +28,11 @@ public class SwingView implements View {
 
             JLabel labelConvertFrom = new JLabel("Конвертировать из:");
             textFieldInput = new JTextField(10);
-            JComboBox<Object> comboBoxFrom = new JComboBox<>(model.getScales().toArray());
+            JComboBox<Object> comboBoxFrom = new JComboBox<>(model.scales().toArray());
 
             JLabel labelConvertTo = new JLabel("Конвертировать в:");
             textFieldOutput = new JTextField(10);
-            JComboBox<Object> comboBoxTo = new JComboBox<>(model.getScales().toArray());
+            JComboBox<Object> comboBoxTo = new JComboBox<>(model.scales().toArray());
 
             JButton calculateButton = new JButton("Рассчитать");
 
