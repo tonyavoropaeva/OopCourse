@@ -9,7 +9,7 @@ public class HashTable<E> implements Collection<E> {
 
     public HashTable(int capacity) {
         if (capacity <= 0) {
-            throw new IndexOutOfBoundsException("Вместимость должна быть больше 0, сейчас она равна " + capacity);
+            throw new IllegalArgumentException("Вместимость должна быть больше 0, сейчас она равна " + capacity);
         }
 
         //noinspection unchecked
@@ -192,27 +192,23 @@ public class HashTable<E> implements Collection<E> {
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        int initialSize = size;
+        int initialSizeInHashTable = size;
 
         if (collection.isEmpty()) {
             clear();
         } else {
             for (ArrayList<E> list : items) {
-                if (list == null) {
-                    continue;
-                }
+                if (list != null) {
+                    int initialSizeInList = list.size();
 
-                for (int j = 0; j < list.size(); j++) {
-                    if (!collection.contains(list.get(j))) {
-                        remove(list.get(j));
-
-                        --j;
+                    if (list.retainAll(collection)) {
+                        size -= initialSizeInList - list.size();
                     }
                 }
             }
         }
 
-        return initialSize != size;
+        return initialSizeInHashTable != size;
     }
 
     @Override
