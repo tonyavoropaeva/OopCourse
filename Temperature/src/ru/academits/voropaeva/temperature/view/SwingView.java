@@ -26,13 +26,16 @@ public class SwingView implements View {
             frame.setMinimumSize(new Dimension(400, 280));
             frame.setVisible(true);
 
+            Scale[] scales = new Scale[model.scales().size()];
+            model.scales().toArray(scales);
+
             JLabel labelConvertFrom = new JLabel("Конвертировать из:");
             textFieldInput = new JTextField(10);
-            JComboBox<Object> comboBoxFrom = new JComboBox<>(model.scales().toArray());
+            JComboBox<Scale> comboBoxFrom = new JComboBox<>(scales);
 
             JLabel labelConvertTo = new JLabel("Конвертировать в:");
             textFieldOutput = new JTextField(10);
-            JComboBox<Object> comboBoxTo = new JComboBox<>(model.scales().toArray());
+            JComboBox<Scale> comboBoxTo = new JComboBox<>(scales);
 
             JButton calculateButton = new JButton("Рассчитать");
 
@@ -40,22 +43,22 @@ public class SwingView implements View {
             JPanel panel = new JPanel(gridBagLayout);
 
             // СТРОКА 1
-            GridBagConstraints gridBagConstraintsLineOne = new GridBagConstraints();
-            gridBagConstraintsLineOne.gridx = GridBagConstraints.RELATIVE;
-            gridBagConstraintsLineOne.gridy = 0;
-            gridBagLayout.setConstraints(labelConvertFrom, gridBagConstraintsLineOne);
+            GridBagConstraints gridBagConstraintsLine1 = new GridBagConstraints();
+            gridBagConstraintsLine1.gridx = GridBagConstraints.RELATIVE;
+            gridBagConstraintsLine1.gridy = 0;
+            gridBagLayout.setConstraints(labelConvertFrom, gridBagConstraintsLine1);
 
             // СТРОКА 2
-            GridBagConstraints gridBagConstraintsLineTwo = new GridBagConstraints();
-            gridBagConstraintsLineTwo.gridx = GridBagConstraints.RELATIVE;
-            gridBagConstraintsLineTwo.gridy = 1;
-            gridBagConstraintsLineTwo.insets = new Insets(10, 10, 40, 10);
+            GridBagConstraints gridBagConstraintsLine2 = new GridBagConstraints();
+            gridBagConstraintsLine2.gridx = GridBagConstraints.RELATIVE;
+            gridBagConstraintsLine2.gridy = 1;
+            gridBagConstraintsLine2.insets = new Insets(10, 10, 40, 10);
 
             textFieldInput.setPreferredSize(new Dimension(15, 30));
             textFieldInput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 17));
 
-            gridBagLayout.setConstraints(textFieldInput, gridBagConstraintsLineTwo);
-            gridBagLayout.setConstraints(comboBoxFrom, gridBagConstraintsLineTwo);
+            gridBagLayout.setConstraints(textFieldInput, gridBagConstraintsLine2);
+            gridBagLayout.setConstraints(comboBoxFrom, gridBagConstraintsLine2);
 
             //СТРОКА 3
             GridBagConstraints gridBagConstraintsLineThree = new GridBagConstraints();

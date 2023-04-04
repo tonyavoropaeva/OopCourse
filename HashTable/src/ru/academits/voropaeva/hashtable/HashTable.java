@@ -192,23 +192,24 @@ public class HashTable<E> implements Collection<E> {
 
     @Override
     public boolean retainAll(Collection<?> collection) {
-        int initialSizeInHashTable = size;
+        int hashTableInitialSize = size;
 
         if (collection.isEmpty()) {
             clear();
         } else {
             for (ArrayList<E> list : items) {
                 if (list != null) {
-                    int initialSizeInList = list.size();
+                    int listInitialSize = list.size();
 
                     if (list.retainAll(collection)) {
-                        size -= initialSizeInList - list.size();
+                        size -= listInitialSize - list.size();
+                        ++modCount;
                     }
                 }
             }
         }
 
-        return initialSizeInHashTable != size;
+        return hashTableInitialSize != size;
     }
 
     @Override
