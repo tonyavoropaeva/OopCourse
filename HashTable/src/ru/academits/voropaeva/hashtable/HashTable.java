@@ -203,13 +203,18 @@ public class HashTable<E> implements Collection<E> {
 
                     if (list.retainAll(collection)) {
                         size -= listInitialSize - list.size();
-                        ++modCount;
                     }
                 }
             }
         }
 
-        return hashTableInitialSize != size;
+        if (hashTableInitialSize != size) {
+            ++modCount;
+
+            return true;
+        }
+
+        return false;
     }
 
     @Override
