@@ -61,32 +61,32 @@ public class SwingView implements View {
             gridBagLayout.setConstraints(comboBoxFrom, gridBagConstraintsLine2);
 
             //СТРОКА 3
-            GridBagConstraints gridBagConstraintsLineThree = new GridBagConstraints();
-            gridBagConstraintsLineThree.gridx = GridBagConstraints.RELATIVE;
-            gridBagConstraintsLineThree.gridy = 2;
+            GridBagConstraints gridBagConstraintsLine3 = new GridBagConstraints();
+            gridBagConstraintsLine3.gridx = GridBagConstraints.RELATIVE;
+            gridBagConstraintsLine3.gridy = 2;
 
-            gridBagLayout.setConstraints(labelConvertTo, gridBagConstraintsLineThree);
+            gridBagLayout.setConstraints(labelConvertTo, gridBagConstraintsLine3);
 
             //СТРОКА 4
-            GridBagConstraints gridBagConstraintsLineFour = new GridBagConstraints();
-            gridBagConstraintsLineFour.insets = new Insets(10, 0, 0, 0);
-            gridBagConstraintsLineFour.gridx = GridBagConstraints.RELATIVE;
-            gridBagConstraintsLineFour.gridy = 3;
+            GridBagConstraints gridBagConstraintsLine4 = new GridBagConstraints();
+            gridBagConstraintsLine4.insets = new Insets(10, 0, 0, 0);
+            gridBagConstraintsLine4.gridx = GridBagConstraints.RELATIVE;
+            gridBagConstraintsLine4.gridy = 3;
 
             textFieldOutput.setPreferredSize(new Dimension(15, 30));
             textFieldOutput.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 17));
             textFieldOutput.setEditable(false);  // запретили редактирование
 
-            gridBagLayout.setConstraints(textFieldOutput, gridBagConstraintsLineFour);
-            gridBagLayout.setConstraints(comboBoxTo, gridBagConstraintsLineFour);
+            gridBagLayout.setConstraints(textFieldOutput, gridBagConstraintsLine4);
+            gridBagLayout.setConstraints(comboBoxTo, gridBagConstraintsLine4);
 
             // СТРОКА 5
-            GridBagConstraints gridBagConstraintsFive = new GridBagConstraints();
-            gridBagConstraintsFive.gridy = 4;
-            gridBagConstraintsFive.gridwidth = 4;
-            gridBagConstraintsFive.insets = new Insets(30, 0, 0, 0);
+            GridBagConstraints gridBagConstraints5 = new GridBagConstraints();
+            gridBagConstraints5.gridy = 4;
+            gridBagConstraints5.gridwidth = 4;
+            gridBagConstraints5.insets = new Insets(30, 0, 0, 0);
 
-            gridBagLayout.setConstraints(calculateButton, gridBagConstraintsFive);
+            gridBagLayout.setConstraints(calculateButton, gridBagConstraints5);
 
             panel.add(labelConvertFrom);
             panel.add(textFieldInput);
