@@ -5,7 +5,7 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
         if (args.length != 2) {
-            System.out.println("Передано неправильное количество аргументов, сейчас их: " + args.length);
+            System.out.println("Аргумента должно быть 2(имя исходного файла, и имя файла назначения), сейчас их: " + args.length);
 
             return;
         }
