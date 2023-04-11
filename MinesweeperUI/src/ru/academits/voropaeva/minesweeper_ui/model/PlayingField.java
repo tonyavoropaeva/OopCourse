@@ -106,7 +106,6 @@ public class PlayingField implements ModelMinesweeper {
         if (closedCellsCount == bombs) {
             gameState = WIN;
         }
-        System.out.println(closedCellsCount);
     }
 
     private void openCellsWithBomb() {

@@ -158,7 +158,9 @@ public class SwingView implements View {
         JMenuItem about = new JMenuItem("О программе");
         about.addActionListener(e -> JOptionPane.showMessageDialog(
                 frame,
-                "Сапёр классический\nРазработала: Воропаева Тоня\nE-mail: voropaevatonya@gmail.com",
+                "Сапёр классический" + System.lineSeparator() +
+                        "Разработала: Воропаева Тоня" + System.lineSeparator() +
+                        "E-mail: voropaevatonya@gmail.com",
                 "О программе",
                 JOptionPane.INFORMATION_MESSAGE,
                 iconMini
