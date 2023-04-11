@@ -1,5 +1,7 @@
 package ru.academits.voropaeva.minesweeper_ui.model;
 
-public class Flag {
-   // private
+public enum GameState {
+    WIN,
+    LOSS,
+    GAME;
 }
