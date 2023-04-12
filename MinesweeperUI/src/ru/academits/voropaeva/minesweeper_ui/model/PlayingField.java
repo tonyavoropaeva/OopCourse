@@ -20,6 +20,21 @@ public class PlayingField implements ModelMinesweeper {
     }
 
     @Override
+    public Cells getCellButton(int y, int x) {
+        return buttonCells[y][x];
+    }
+
+    @Override
+    public int getColumns() {
+        return columns;
+    }
+
+    @Override
+    public int getRows() {
+        return rows;
+    }
+
+    @Override
     public GameState checkGameState() {
         return gameState;
     }
@@ -35,21 +50,6 @@ public class PlayingField implements ModelMinesweeper {
                 buttonCells[y][x] = CLOSED;
             }
         }
-    }
-
-    @Override
-    public Cells getCellButton(int y, int x) {
-        return buttonCells[y][x];
-    }
-
-    @Override
-    public int getColumns() {
-        return columns;
-    }
-
-    @Override
-    public int getRows() {
-        return rows;
     }
 
     private boolean hasBombsAround(int y, int x) {
@@ -76,7 +76,9 @@ public class PlayingField implements ModelMinesweeper {
 
         //если первый клик бомба - меняем поле
         while ((closedCellsCount == columns * rows) && currentCells == BOMB) {
+            ++closedCellsCount;
             initializeCellsUnderButtons();
+
             currentCells = cellsUnderButtons[y][x];
         }
 

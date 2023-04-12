@@ -98,9 +98,7 @@ public class SwingView implements View {
         });
 
         gameElementsPanel.add(buttonRestart);
-
         initializeTimer();
-
         gameElementsPanel.setBackground(Color.BLACK);
         frame.add(gameElementsPanel);
     }
@@ -208,7 +206,7 @@ public class SwingView implements View {
                             int x = button.getX() / ICON_SIZE;
                             int y = button.getY() / ICON_SIZE;
 
-                            if (e.getButton() == MouseEvent.BUTTON1) { // открываем ячейку
+                            if (e.getButton() == MouseEvent.BUTTON1) {
                                 model.openCell(y, x);
 
                                 for (int coordinateY = 0; coordinateY < model.getRows(); coordinateY++) {
