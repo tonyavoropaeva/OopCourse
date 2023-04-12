@@ -76,14 +76,13 @@ public class PlayingField implements ModelMinesweeper {
 
         //если первый клик бомба - меняем поле
         while ((closedCellsCount == columns * rows) && currentCells == BOMB) {
-            ++closedCellsCount;
             initializeCellsUnderButtons();
 
             currentCells = cellsUnderButtons[y][x];
         }
 
-        //если мы выиграли\проиграли или нажали на флажок - выходим
-        if (gameState == LOSS || gameState == WIN || currentButton == FLAG) {
+        //если мы выиграли\проиграли или нажали на не закрытую кнопку - выходим
+        if (gameState == LOSS || gameState == WIN || currentButton != CLOSED) {
             return;
         }
 
