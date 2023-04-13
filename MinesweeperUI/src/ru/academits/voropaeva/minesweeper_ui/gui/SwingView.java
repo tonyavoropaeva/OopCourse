@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.Timer;
 
 import static ru.academits.voropaeva.minesweeper_ui.model.Cells.*;
@@ -23,8 +25,12 @@ public class SwingView implements View {
     private JLabel labelFlagsCount;
     private JButton buttonRestart;
     private Timer timer;
-    JLabel labelTimer;
+    private JLabel labelTimer;
     private final JButton[][] buttons;
+    private int recordTime = Integer.MAX_VALUE;
+    private final ArrayList<Integer> championPlayersTime = new ArrayList<>();
+    private final ArrayList<Date> championPlayersDate = new ArrayList<>();
+    private final ArrayList<String> championPlayersName = new ArrayList<>();
     private final ImageIcon bomb = new ImageIcon("MinesweeperUI/src/ru/academits/voropaeva/minesweeper_ui/resources/bomb.png");
     private final ImageIcon bombed = new ImageIcon("MinesweeperUI/src/ru/academits/voropaeva/minesweeper_ui/resources/bombed.png");
     private final ImageIcon closed = new ImageIcon("MinesweeperUI/src/ru/academits/voropaeva/minesweeper_ui/resources/closed.png");
@@ -166,6 +172,7 @@ public class SwingView implements View {
         about.setFont(font);
 
         JMenuItem highScores = new JMenuItem("Таблица рекордов");
+        highScores.addActionListener(e -> showHighScoreTable());
         highScores.setFont(font);
 
         JMenuItem exit = new JMenuItem("Выход");
@@ -183,6 +190,35 @@ public class SwingView implements View {
         menuBar.add(menu);
 
         frame.setJMenuBar(menuBar);
+    }
+
+    private void showHighScoreTable() {
+        JFrame frameHighScore = new JFrame("Таблица рекордов");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        String[] columnNames = {
+                "Имя",
+                "Время",
+                "Дата"
+        };
+
+        Object[][] data = new Object[championPlayersDate.size()][columnNames.length];
+
+        for (int i = 0; i < championPlayersDate.size(); i++) {
+            data[i][0] = championPlayersName.get(championPlayersName.size() - 1 - i);
+            data[i][1] = championPlayersTime.get(championPlayersTime.size() - 1 - i);
+            data[i][2] = championPlayersDate.get(championPlayersDate.size() - 1 - i);
+        }
+
+        JTable tableHighScore = new JTable(data, columnNames);
+
+        JScrollPane scrollPane = new JScrollPane(tableHighScore);
+        frameHighScore.getContentPane().add(scrollPane);
+        frameHighScore.setPreferredSize(new Dimension(550, 200));
+        frameHighScore.setResizable(false);
+        frameHighScore.pack();
+        frameHighScore.setLocationRelativeTo(null);
+        frameHighScore.setVisible(true);
     }
 
     private void initializeCellsPanel() {
@@ -233,13 +269,29 @@ public class SwingView implements View {
                                         buttonRestart.setIcon(win);
                                         timer.stop();
 
-                                        JOptionPane.showMessageDialog(
-                                                frame,
-                                                "Вы победили! Поздравляю!",
-                                                "Победа",
-                                                JOptionPane.PLAIN_MESSAGE
-                                        );
+                                        int currentGameTime = Integer.parseInt(labelTimer.getText());
 
+                                        if (currentGameTime < recordTime) {
+                                            recordTime = currentGameTime;
+
+                                            championPlayersTime.add(currentGameTime);
+
+                                            championPlayersName.add(JOptionPane.showInputDialog(
+                                                    frame,
+                                                    "Вы стали чемпионом! Поздравляю! Введите имя: ",
+                                                    "Победа",
+                                                    JOptionPane.PLAIN_MESSAGE
+                                            ));
+
+                                            championPlayersDate.add(new Date());
+                                        } else {
+                                            JOptionPane.showMessageDialog(
+                                                    frame,
+                                                    "Вы победили! Поздравляю!",
+                                                    "Победа",
+                                                    JOptionPane.PLAIN_MESSAGE
+                                            );
+                                        }
                                     }
                                 }
                             } else if (e.getButton() == MouseEvent.BUTTON3) {
