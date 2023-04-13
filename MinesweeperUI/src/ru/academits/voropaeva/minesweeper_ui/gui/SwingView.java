@@ -205,9 +205,11 @@ public class SwingView implements View {
         Object[][] data = new Object[championPlayersDate.size()][columnNames.length];
 
         for (int i = 0; i < championPlayersDate.size(); i++) {
-            data[i][0] = championPlayersName.get(championPlayersName.size() - 1 - i);
-            data[i][1] = championPlayersTime.get(championPlayersTime.size() - 1 - i);
-            data[i][2] = championPlayersDate.get(championPlayersDate.size() - 1 - i);
+            int listIndex = championPlayersDate.size() - 1 - i;
+
+            data[i][0] = championPlayersName.get(listIndex);
+            data[i][1] = championPlayersTime.get(listIndex);
+            data[i][2] = championPlayersDate.get(listIndex);
         }
 
         JTable tableHighScore = new JTable(data, columnNames);
